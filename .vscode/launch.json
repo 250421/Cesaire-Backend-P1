@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RegisterLogin",
+            "request": "launch",
+            "mainClass": "com.authenthication.auth_session.RegisterLogin",
+            "projectName": "auth-session"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-InventoryBackendApplication<inventory-backend>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
