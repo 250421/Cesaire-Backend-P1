@@ -69,8 +69,12 @@ public class UserDto {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                '}';
+                ", role='" + role + '\''+
+                 '}';
 
 
 }
 }
+
+
+

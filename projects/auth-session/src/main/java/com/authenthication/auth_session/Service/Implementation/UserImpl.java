@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.authenthication.auth_session.Dto.LoginDto;
+import com.authenthication.auth_session.Dto.ProductsDto;
 import com.authenthication.auth_session.Dto.UserDto;
 import com.authenthication.auth_session.Entity.SessionInfo;
 import com.authenthication.auth_session.Entity.User;
@@ -31,6 +32,9 @@ public class UserImpl implements UserService {
 
     @Autowired
     private SessionRepo sessionRepo;
+
+    
+
 
     private static final int SESSION_TIMEOUT_MINUTES = 30;
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
@@ -135,4 +139,23 @@ public class UserImpl implements UserService {
         Optional<SessionInfo> sessionOpt = sessionRepo.findBySessionId(sessionId);
         return sessionOpt.map(SessionInfo::getUser);
     }
+
+    // Add these helper methods for role and validation checks
+    public boolean isAdmin(String sessionId) {
+        Optional<User> userOpt = getUserFromSession(sessionId);
+        return userOpt.isPresent() && "ADMIN".equals(userOpt.get().getRole());
+    }
+
+    public boolean validateProductNumbers(ProductsDto productsDto) {
+        if (productsDto.getStock() != null && productsDto.getStock() < 0) {
+            return false;
+        }
+        if (productsDto.getPrice() != null && productsDto.getPrice() < 0) {
+            return false;
+        }
+        return true;
+    }
+     
 }
+
+
